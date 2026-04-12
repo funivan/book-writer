@@ -13,7 +13,6 @@ set -euo pipefail
 
 readonly AUTHOR="${AUTHOR:-Ivan Shcherbak}"
 readonly LANG="${LANG:-uk}"
-readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 
 readonly CSS_CONTENT='body { font-size: 14pt;}'
 
