@@ -2,11 +2,9 @@ name: Validate Shell Scripts
 
 on:
   push:
-    branches: [main]
     paths:
       - '**/*.sh'
   pull_request:
-    branches: [main]
     paths:
       - '**/*.sh'
 
