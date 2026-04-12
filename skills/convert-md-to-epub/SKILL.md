@@ -1,76 +1,74 @@
 ---
 name: convert-md-to-epub
-description: Convert a folder with markdown files to EPUB format for ebook readers.
+description: Конвертувати папку з markdown файлами у формат EPUB для читалок.
 compatibility:
   - pandoc
   - imagemagick (optional, for cover processing)
 ---
 
-# Convert Markdown to EPUB
+# Конвертація Markdown у EPUB
 
-Converts a folder containing markdown files to a single EPUB file.
+Конвертує папку з markdown файлами в один EPUB файл.
 
-## When to Use
+## Коли використовувати
 
-- Converting markdown story files to ebook format
-- Creating EPUBs from generated content
-- Preparing books for e-readers
-- Triggered by: "convert to epub", "create epub", "convert md to epub", "конвертувати в epub", "створити epub"
+- Конвертація markdown файлів історії у формат електронної книги
+- Створення EPUB з згенерованого контенту
+- Підготовка книг для читалок
+- Викликається: "convert to epub", "create epub", "конвертувати в epub", "створити epub"
 
-## Instructions
+## Інструкції
 
-When the user provides a folder path, run:
+Коли користувач вказує шлях до папки, запусти:
 
 ```bash
 scripts/convert.sh --folder "<folder-path>"
 ```
 
-Optional prefix: to include only `.md` files whose name starts with a prefix (e.g. scene files `s1.md`, `s2.md`):
+Необов'язковий префікс: щоб включити лише `.md` файли, назва яких починається з певного префікса (наприклад, файли сцен `s1.md`, `s2.md`):
 
 ```bash
 scripts/convert.sh --folder "<folder-path>" --prefix "<prefix>"
 ```
 
-If prefix is not specified, all `.md` files in the folder are used, sorted naturally (e.g. s1, s2, s10).
+Якщо префікс не вказано, використовуються всі `.md` файли у папці з натуральним сортуванням (s1, s2, s10).
 
-## Usage
+## Параметри
 
-**Arguments**
+- `--folder <path>` (обов'язковий) — шлях до папки з `.md` файлами.
+- `--prefix <str>` (необов'язковий) — якщо задано, включаються лише `.md` файли, назва яких починається з цього префікса. Якщо не задано — використовуються всі `.md` файли з натуральним сортуванням.
+- `-h`, `--help` — показати довідку.
 
-- `--folder <path>` (required) – Path to folder containing `.md` files.
-- `--prefix <str>` (optional) – If set, only `.md` files whose basename starts with this prefix are included. If omitted, all `.md` files are used, in natural sort order.
-- `-h`, `--help` – Show usage and exit.
+## Залежності
 
-**Requirements**
+- **pandoc** — конвертація markdown у EPUB.
+- **coreutils** (macOS, необов'язково) — для натурального сортування (s1, s2, s10). Linux `sort` вже підтримує `-V`.
 
-- **pandoc** – markdown to EPUB conversion.
-- **coreutils** (macOS, optional) – for natural sort (s1, s2, s10). Linux `sort` already supports `-V`.
+**Встановлення:**
 
-**Install required tools**
-
-- **macOS:**  
-  `brew install pandoc`  
-  For natural chapter order (s1, s2, s10): `brew install coreutils`
-- **Linux (Debian/Ubuntu):**  
+- **macOS:**
+  `brew install pandoc`
+  Для правильного порядку розділів (s1, s2, s10): `brew install coreutils`
+- **Linux (Debian/Ubuntu):**
   `sudo apt install pandoc`
-- **Linux (Fedora):**  
+- **Linux (Fedora):**
   `sudo dnf install pandoc`
 
-## What It Does
+## Що робить скрипт
 
-1. Merges `.md` files in the folder (natural sort: s1, s2, s10…).
-2. Creates an EPUB with the folder name as title in the same folder.
-3. Uses a temporary directory for merge/CSS; cleans up on exit.
-4. Uses the first PNG/JPG/JPEG in the folder as cover if present.
+1. Об'єднує `.md` файли у папці (натуральне сортування: s1, s2, s10…).
+2. Створює EPUB з назвою папки як заголовком у тій самій папці.
+3. Використовує тимчасову директорію для злиття/CSS; очищає при виході.
+4. Використовує перший PNG/JPG/JPEG у папці як обкладинку, якщо є.
 
-## Example
+## Приклад
 
 ```bash
-# Convert a book folder (all .md files, natural sort)
+# Конвертувати папку книги (всі .md файли, натуральне сортування)
 scripts/convert.sh --folder "books/my-book"
 
-# Only include scene files s1.md, s2.md, s10.md, ...
+# Лише файли сцен s1.md, s2.md, s10.md, ...
 scripts/convert.sh --folder "books/my-book" --prefix "s"
 ```
 
-This creates `books/my-book/my-book.epub` with proper formatting and cover image when available.
+Створить `books/my-book/my-book.epub` з форматуванням та обкладинкою (якщо є).
