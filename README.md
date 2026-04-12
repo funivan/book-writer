@@ -15,9 +15,7 @@ A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) plugin for gener
 
 ## Installation
 
-### Option A: Install as a plugin from the marketplace (recommended)
-
-The fastest way to get started. Run these commands inside Claude Code:
+Run these commands inside Claude Code:
 
 ```
 /plugin marketplace add funivan/book-writer
@@ -31,39 +29,6 @@ To update the plugin later:
 ```
 /reload-plugins
 ```
-
-### Option B: Install individual skills manually
-
-You can copy individual skills into your own project without installing the whole plugin.
-
-1. Create a skills directory in your project (if it doesn't exist):
-
-```bash
-mkdir -p .claude/skills
-```
-
-2. Copy the skill you want:
-
-```bash
-# Example: copy just the EPUB converter
-git clone --depth 1 git@github.com:funivan/book-writer.git /tmp/book-writer
-cp -r /tmp/book-writer/skills/convert-md-to-epub .claude/skills/
-rm -rf /tmp/book-writer
-```
-
-3. The skill is now available as `/convert-md-to-epub` in your project.
-
-### Option C: Clone the full repository
-
-Use this if you want to develop books directly inside the project or contribute to the plugin:
-
-```bash
-git clone git@github.com:funivan/book-writer.git
-cd book-writer
-claude
-```
-
-All skills are available immediately as slash commands.
 
 ### Optional dependencies
 
@@ -125,23 +90,6 @@ The typical book generation workflow:
 4. **generate-full-story** — produces chapter files (`s1-*.md`, `s2-*.md`, ...)
 5. **generate-image** — produces `cover.jpeg` and chapter images
 6. **convert-md-to-epub** — produces the final `.epub`
-
-## Creating your own skills marketplace
-
-You can use this repository as a template for distributing your own Claude Code skills. The key files:
-
-```
-your-plugin/
-  .claude-plugin/
-    plugin.json            # Plugin metadata (name, version, author)
-    marketplace.json       # Marketplace catalog listing your plugins
-  skills/
-    your-skill/
-      SKILL.md             # Skill instructions (YAML frontmatter + markdown)
-      scripts/             # Optional helper scripts
-```
-
-See `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` in this repo for working examples.
 
 ## Project structure
 
