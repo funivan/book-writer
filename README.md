@@ -13,52 +13,76 @@ A Claude Code skills plugin for generating children's books — from story ideas
 | `convert-md-to-epub` | Merge markdown chapter files into a single EPUB ebook |
 | `write-bug` | Create structured bug reports with reproduction steps and environment details |
 
-## Setup
+## Installation
 
-### Prerequisites
+### 1. Install Claude Code
 
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI installed
-- Bash shell (macOS or Linux)
+If you don't have Claude Code yet, install it via npm:
 
-### Optional dependencies (per skill)
-
-| Tool | Required by | Install |
-|------|-------------|---------|
-| `pandoc` | `convert-md-to-epub` | `brew install pandoc` / `apt install pandoc` |
-| `imagemagick` | `generate-image` | `brew install imagemagick` / `apt install imagemagick` |
-| `curl`, `jq` | `generate-image` | `brew install jq` / `apt install jq` |
-| `coreutils` | `convert-md-to-epub` (macOS) | `brew install coreutils` |
-
-### Environment variables
-
-Create a `.env` file in the project root for API keys:
-
+```bash
+npm install -g @anthropic-ai/claude-code
 ```
-UNSPLASH_API_KEY=your_unsplash_access_key
+
+See the [Claude Code docs](https://docs.anthropic.com/en/docs/claude-code) for more details.
+
+### 2. Clone the repository
+
+```bash
+git clone git@github.com:funivan/book-writer.git
+cd book-writer
 ```
+
+### 3. Install optional dependencies
+
+Core skills only need Claude Code and a Bash shell (macOS or Linux). Some skills require additional tools:
+
+| Tool | Required by | macOS | Linux |
+|------|-------------|-------|-------|
+| `pandoc` | `convert-md-to-epub` | `brew install pandoc` | `apt install pandoc` |
+| `imagemagick` | `generate-image` | `brew install imagemagick` | `apt install imagemagick` |
+| `jq` | `generate-image` | `brew install jq` | `apt install jq` |
+| `coreutils` | `convert-md-to-epub` | `brew install coreutils` | included by default |
+
+### 4. Configure environment variables
+
+Create a `.env` file in the project root for API keys used by the image skill:
+
+```bash
+echo "UNSPLASH_API_KEY=your_unsplash_access_key" > .env
+```
+
+### 5. Start Claude Code
+
+From the project directory, launch Claude Code:
+
+```bash
+claude
+```
+
+All skills will be automatically available as slash commands.
 
 ## Usage
 
-Skills are invoked through Claude Code using the `@skills/` prefix or by describing the task:
+Skills are invoked inside Claude Code using the `/` prefix or by describing the task in natural language:
 
 ```
 # Generate a story idea from source material
-@skills/generate-story-idea
+/generate-story-idea
 
 # Prepare character profiles
-@skills/prepare-characters
+/prepare-characters
 
 # Generate the full story
-@skills/generate-full-story --book_folder books/my-book --original_file books/original.txt
+/generate-full-story --book_folder books/my-book --original_file books/original.txt
 
 # Generate a book cover
-@skills/generate-image
+/generate-image
 
 # Convert to EPUB
-@skills/convert-md-to-epub
+/convert-md-to-epub
 
 # File a bug report
-@skills/write-bug --title "Issue title" --description "What went wrong"
+/write-bug --title "Issue title" --description "What went wrong"
 ```
 
 ## Project structure
