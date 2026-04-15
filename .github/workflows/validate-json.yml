@@ -1,0 +1,103 @@
+name: Validate JSON
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.json'
+      - '!.claude/**'
+  pull_request:
+    paths:
+      - '**/*.json'
+      - '!.claude/**'
+
+jobs:
+  json-lint:
+    name: JSON Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Find JSON files
+        id: find-json
+        run: |
+          files=$(find . -name '*.json' -not -path './.claude/*' -type f | sort)
+          echo "Found JSON files:"
+          echo "$files"
+          if [ -z "$files" ]; then
+            echo "has_files=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_files=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate JSON syntax
+        if: steps.find-json.outputs.has_files == 'true'
+        run: |
+          exit_code=0
+          while IFS= read -r -d '' file; do
+            echo "::group::Checking $file"
+            if python3 -m json.tool "$file" > /dev/null 2>&1; then
+              echo "PASS: $file"
+            else
+              echo "FAIL: $file"
+              python3 -m json.tool "$file" 2>&1 || true
+              exit_code=1
+            fi
+            echo "::endgroup::"
+          done < <(find . -name '*.json' -not -path './.claude/*' -type f -print0 | sort -z)
+          exit $exit_code
+
+  marketplace-schema:
+    name: Marketplace Schema Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate marketplace.json required fields
+        run: |
+          file=".claude-plugin/marketplace.json"
+          if [ ! -f "$file" ]; then
+            echo "No marketplace.json found, skipping"
+            exit 0
+          fi
+
+          exit_code=0
+
+          # Check required top-level fields
+          for field in name owner plugins; do
+            if ! python3 -c "import json,sys; d=json.load(open('$file')); assert '$field' in d" 2>/dev/null; then
+              echo "FAIL: missing required field '$field' in $file"
+              exit_code=1
+            else
+              echo "PASS: field '$field' present"
+            fi
+          done
+
+          # Check owner has name
+          if ! python3 -c "import json; d=json.load(open('$file')); assert isinstance(d.get('owner'), dict) and 'name' in d['owner']" 2>/dev/null; then
+            echo "FAIL: 'owner' must be an object with a 'name' field"
+            exit_code=1
+          else
+            echo "PASS: owner.name present"
+          fi
+
+          # Check each plugin has name and source
+          python3 -c "
+          import json, sys
+          d = json.load(open('$file'))
+          plugins = d.get('plugins', [])
+          ok = True
+          for i, p in enumerate(plugins):
+              for f in ['name', 'source']:
+                  if f not in p:
+                      print(f'FAIL: plugins[{i}] missing required field \"{f}\"')
+                      ok = False
+                  else:
+                      print(f'PASS: plugins[{i}].{f} present')
+          if not ok:
+              sys.exit(1)
+          " || exit_code=1
+
+          exit $exit_code
