@@ -1,0 +1,17 @@
+{
+  "marketplace": {
+    "name": "book-writer-marketplace",
+    "description": "Skills for generating children's books with Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "book-writer",
+      "version": "1.0.0",
+      "description": "Generate children's books — from story ideas to EPUB",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/funivan/book-writer.git"
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Book Writer
 
-A Claude Code skills plugin for generating children's books — from story ideas to full chapters, character profiles, cover images, and EPUB exports.
+A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) plugin for generating children's books — from story ideas to full chapters, character profiles, cover images, and EPUB exports.
 
 ## Skills
 
@@ -13,58 +13,91 @@ A Claude Code skills plugin for generating children's books — from story ideas
 | `convert-md-to-epub` | Merge markdown chapter files into a single EPUB ebook |
 | `write-bug` | Create structured bug reports with reproduction steps and environment details |
 
-## Setup
+## Installation
 
-### Prerequisites
+Run these commands inside Claude Code:
 
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI installed
-- Bash shell (macOS or Linux)
+```
+/plugin marketplace add funivan/book-writer
+/plugin install book-writer@funivan-book-writer
+```
 
-### Optional dependencies (per skill)
+After installation, all skills are available as `/book-writer:generate-story-idea`, `/book-writer:prepare-characters`, etc.
 
-| Tool | Required by | Install |
-|------|-------------|---------|
-| `pandoc` | `convert-md-to-epub` | `brew install pandoc` / `apt install pandoc` |
-| `imagemagick` | `generate-image` | `brew install imagemagick` / `apt install imagemagick` |
-| `curl`, `jq` | `generate-image` | `brew install jq` / `apt install jq` |
-| `coreutils` | `convert-md-to-epub` (macOS) | `brew install coreutils` |
+To update the plugin later:
+
+```
+/reload-plugins
+```
+
+### Optional dependencies
+
+Core skills only need Claude Code and a Bash shell (macOS or Linux). Some skills require additional tools:
+
+| Tool | Required by | macOS | Linux |
+|------|-------------|-------|-------|
+| `pandoc` | `convert-md-to-epub` | `brew install pandoc` | `apt install pandoc` |
+| `imagemagick` | `generate-image` | `brew install imagemagick` | `apt install imagemagick` |
+| `jq` | `generate-image` | `brew install jq` | `apt install jq` |
+| `coreutils` | `convert-md-to-epub` | `brew install coreutils` | included by default |
 
 ### Environment variables
 
-Create a `.env` file in the project root for API keys:
+Create a `.env` file with API keys used by the image skill:
 
-```
-UNSPLASH_API_KEY=your_unsplash_access_key
+```bash
+echo "UNSPLASH_API_KEY=your_unsplash_access_key" > .env
 ```
 
 ## Usage
 
-Skills are invoked through Claude Code using the `@skills/` prefix or by describing the task:
+Skills are invoked inside Claude Code using the `/` prefix or by describing the task in natural language:
 
 ```
 # Generate a story idea from source material
-@skills/generate-story-idea
+/generate-story-idea
 
 # Prepare character profiles
-@skills/prepare-characters
+/prepare-characters
 
 # Generate the full story
-@skills/generate-full-story --book_folder books/my-book --original_file books/original.txt
+/generate-full-story --book_folder books/my-book --original_file books/original.txt
 
 # Generate a book cover
-@skills/generate-image
+/generate-image
 
 # Convert to EPUB
-@skills/convert-md-to-epub
+/convert-md-to-epub
 
 # File a bug report
-@skills/write-bug --title "Issue title" --description "What went wrong"
+/write-bug --title "Issue title" --description "What went wrong"
 ```
+
+When installed as a plugin, prefix skills with the plugin name:
+
+```
+/book-writer:generate-story-idea
+/book-writer:convert-md-to-epub
+```
+
+## Workflow
+
+The typical book generation workflow:
+
+1. Place source material in `original.txt`
+2. **generate-story-idea** — pick a plot direction, produces `book-idea.txt`
+3. **prepare-characters** — produces `characters.txt`
+4. **generate-full-story** — produces chapter files (`s1-*.md`, `s2-*.md`, ...)
+5. **generate-image** — produces `cover.jpeg` and chapter images
+6. **convert-md-to-epub** — produces the final `.epub`
 
 ## Project structure
 
 ```
 book-writer/
+  .claude-plugin/
+    plugin.json              # Plugin metadata
+    marketplace.json         # Marketplace catalog
   skills/
     generate-story-idea/
       SKILL.md
@@ -88,20 +121,9 @@ book-writer/
         slugify.sh
   .github/
     workflows/
-      validate-scripts.yml    # ShellCheck + syntax + permissions CI
+      validate-scripts.yml   # ShellCheck + syntax + permissions CI
   README.md
 ```
-
-## Workflow
-
-The typical book generation workflow:
-
-1. Place source material in `original.txt`
-2. **generate-story-idea** — pick a plot direction, produces `book-idea.txt`
-3. **prepare-characters** — produces `characters.txt`
-4. **generate-full-story** — produces chapter files (`s1-*.md`, `s2-*.md`, ...)
-5. **generate-image** — produces `cover.jpeg` and chapter images
-6. **convert-md-to-epub** — produces the final `.epub`
 
 ## CI
 
