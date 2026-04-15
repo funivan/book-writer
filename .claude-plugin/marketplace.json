@@ -12,7 +12,7 @@
       "name": "book-writer",
       "version": "1.0.0",
       "description": "Generate children's books — from story ideas to EPUB",
-      "source": ".",
+      "source": "./",
       "category": "productivity"
     }
   ]

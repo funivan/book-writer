@@ -7,9 +7,6 @@
     "url": "https://github.com/funivan"
   },
   "homepage": "https://github.com/funivan/book-writer",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/funivan/book-writer.git"
-  },
+  "repository": "https://github.com/funivan/book-writer",
   "license": "MIT"
 }
