@@ -119,10 +119,12 @@ book-writer/
       SKILL.md
       scripts/
         slugify.sh
+  scripts/
+    validate-json.py           # JSON lint + marketplace schema validator
   .github/
     workflows/
-      validate-scripts.yml   # ShellCheck + syntax + permissions CI
-      validate-json.yml      # JSON lint + marketplace schema CI
+      validate-scripts.yml     # ShellCheck + syntax + permissions CI
+      validate-json.yml        # JSON validation CI
   README.md
 ```
 
