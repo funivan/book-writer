@@ -1,0 +1,21 @@
+name: Validate JSON
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.json'
+  pull_request:
+    paths:
+      - '**/*.json'
+
+jobs:
+  validate-json:
+    name: JSON Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate JSON
+        uses: GrantBirki/json-yaml-validate@v3
