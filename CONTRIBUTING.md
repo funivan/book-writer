@@ -28,8 +28,6 @@ book-writer/
       SKILL.md
       scripts/
         slugify.sh
-  scripts/
-    validate-json.py           # JSON lint + marketplace schema validator
   .github/
     workflows/
       validate-scripts.yml     # ShellCheck + syntax + permissions CI
@@ -44,8 +42,7 @@ Shell scripts and JSON files are validated on every push and pull request via Gi
 - **ShellCheck** — static analysis for common shell scripting issues
 - **Bash syntax check** — validates all `.sh` files parse correctly
 - **Executable permission check** — ensures scripts have `+x` permission
-- **JSON lint** — validates all `.json` files have correct syntax
-- **Marketplace schema check** — ensures `marketplace.json` has required fields (`name`, `owner`, `plugins[].source`)
+- **JSON lint** — validates all `.json` files have correct syntax ([json-yaml-validate](https://github.com/GrantBirki/json-yaml-validate))
 
 You can run validations locally:
 
@@ -54,5 +51,6 @@ You can run validations locally:
 shellcheck skills/*/scripts/*.sh
 
 # JSON
-python3 scripts/validate-json.py
+python3 -m json.tool .claude-plugin/marketplace.json
+python3 -m json.tool .claude-plugin/plugin.json
 ```

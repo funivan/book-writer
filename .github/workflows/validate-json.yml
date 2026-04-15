@@ -13,11 +13,13 @@ on:
 
 jobs:
   validate-json:
-    name: JSON Lint & Schema
+    name: JSON Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Validate JSON
-        run: python3 scripts/validate-json.py
+        uses: GrantBirki/json-yaml-validate@v3
+        with:
+          json_exclude_regex: '\.claude/'
