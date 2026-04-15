@@ -5,11 +5,9 @@ on:
     branches: [main]
     paths:
       - '**/*.json'
-      - '!.claude/**'
   pull_request:
     paths:
       - '**/*.json'
-      - '!.claude/**'
 
 jobs:
   validate-json:
@@ -21,5 +19,3 @@ jobs:
 
       - name: Validate JSON
         uses: GrantBirki/json-yaml-validate@v3
-        with:
-          json_exclude_regex: '\.claude/'
