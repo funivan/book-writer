@@ -1,7 +1,7 @@
 {
   "name": "book-writer",
   "description": "Claude Code skills for generating children's books — story ideas, characters, chapters, cover images, and EPUB export",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Ivan Shcherbak",
     "url": "https://github.com/funivan"

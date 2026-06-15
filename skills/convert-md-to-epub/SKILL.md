@@ -22,13 +22,13 @@ compatibility:
 Коли користувач вказує шлях до папки, запусти:
 
 ```bash
-scripts/convert.sh --folder "<folder-path>"
+skills/convert-md-to-epub/scripts/convert.sh --folder "<folder-path>"
 ```
 
 Необов'язковий префікс: щоб включити лише `.md` файли, назва яких починається з певного префікса (наприклад, файли сцен `s1.md`, `s2.md`):
 
 ```bash
-scripts/convert.sh --folder "<folder-path>" --prefix "<prefix>"
+skills/convert-md-to-epub/scripts/convert.sh --folder "<folder-path>" --prefix "<prefix>"
 ```
 
 Якщо префікс не вказано, використовуються всі `.md` файли у папці з натуральним сортуванням (s1, s2, s10).
@@ -65,10 +65,10 @@ scripts/convert.sh --folder "<folder-path>" --prefix "<prefix>"
 
 ```bash
 # Конвертувати папку книги (всі .md файли, натуральне сортування)
-scripts/convert.sh --folder "books/my-book"
+skills/convert-md-to-epub/scripts/convert.sh --folder "books/my-book"
 
 # Лише файли сцен s1.md, s2.md, s10.md, ...
-scripts/convert.sh --folder "books/my-book" --prefix "s"
+skills/convert-md-to-epub/scripts/convert.sh --folder "books/my-book" --prefix "s"
 ```
 
 Створить `books/my-book/my-book.epub` з форматуванням та обкладинкою (якщо є).
