@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "book-writer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Skills for generating children's books with Claude Code",
   "owner": {
     "name": "Ivan Shcherbak",
@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "book-writer",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Generate children's books — from story ideas to EPUB",
       "source": "./",
       "category": "productivity"
