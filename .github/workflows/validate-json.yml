@@ -8,6 +8,7 @@ on:
   pull_request:
     paths:
       - '**/*.json'
+  merge_group:
 
 jobs:
   validate-json:
@@ -18,4 +19,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Validate JSON
-        uses: GrantBirki/json-yaml-validate@v3
+        run: |
+          exit_code=0
+          while IFS= read -r -d '' file; do
+            echo "::group::Validating $file"
+            if python3 -m json.tool "$file" > /dev/null; then
+              echo "PASS: $file"
+            else
+              echo "FAIL: $file"
+              exit_code=1
+            fi
+            echo "::endgroup::"
+          done < <(find . -name '*.json' -type f -print0 | sort -z)
+          exit $exit_code
