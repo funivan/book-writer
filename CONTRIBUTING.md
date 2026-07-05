@@ -7,6 +7,8 @@ book-writer/
   .claude-plugin/
     plugin.json              # Plugin metadata
     marketplace.json         # Marketplace catalog
+  .codex-plugin/
+    plugin.json              # Codex plugin metadata
   skills/
     generate-story-idea/
       SKILL.md
@@ -42,7 +44,7 @@ Shell scripts and JSON files are validated on every push and pull request via Gi
 - **ShellCheck** — static analysis for common shell scripting issues
 - **Bash syntax check** — validates all `.sh` files parse correctly
 - **Executable permission check** — ensures scripts have `+x` permission
-- **JSON lint** — validates all `.json` files have correct syntax ([json-yaml-validate](https://github.com/GrantBirki/json-yaml-validate))
+- **JSON lint** — validates all `.json` files have correct syntax with `python3 -m json.tool`
 
 You can run validations locally:
 
@@ -53,4 +55,5 @@ shellcheck skills/*/scripts/*.sh
 # JSON
 python3 -m json.tool .claude-plugin/marketplace.json
 python3 -m json.tool .claude-plugin/plugin.json
+python3 -m json.tool .codex-plugin/plugin.json
 ```

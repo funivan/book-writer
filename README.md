@@ -1,6 +1,6 @@
 # Book Writer
 
-A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) plugin for generating children's books — from story ideas to full chapters, character profiles, cover images, and EPUB exports.
+A Claude Code and Codex plugin for generating children's books — from story ideas to full chapters, character profiles, cover images, and EPUB exports.
 
 ## Skills
 
@@ -15,6 +15,8 @@ A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) plugin for gener
 
 ## Installation
 
+### Claude Code
+
 Run these commands inside Claude Code:
 
 ```
@@ -28,6 +30,16 @@ To update the plugin later:
 
 ```
 /reload-plugins
+```
+
+### Codex
+
+Codex plugin metadata is available in `.codex-plugin/plugin.json`, and it points to the same `skills/` directory used by the Claude Code plugin.
+
+Install it from this repository as a local Codex plugin:
+
+```bash
+codex plugin install .
 ```
 
 ### Optional dependencies

@@ -1,0 +1,39 @@
+{
+  "name": "book-writer",
+  "version": "1.0.1",
+  "description": "Codex skills for generating children's books from story ideas to EPUB export",
+  "author": {
+    "name": "Ivan Shcherbak",
+    "url": "https://github.com/funivan"
+  },
+  "homepage": "https://github.com/funivan/book-writer",
+  "repository": "https://github.com/funivan/book-writer",
+  "license": "MIT",
+  "keywords": [
+    "books",
+    "children",
+    "writing",
+    "epub",
+    "images"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Book Writer",
+    "shortDescription": "Generate children's books, illustrations, and EPUB exports.",
+    "longDescription": "Book Writer helps generate children's books from source material: story ideas, character profiles, full chapters, cover images, chapter illustrations, and final EPUB files.",
+    "developerName": "Ivan Shcherbak",
+    "category": "Productivity",
+    "capabilities": [
+      "Write",
+      "Generate",
+      "Export"
+    ],
+    "websiteURL": "https://github.com/funivan/book-writer",
+    "defaultPrompt": [
+      "Generate a children's story idea from my notes.",
+      "Prepare character profiles for this story.",
+      "Convert my chapter markdown files to EPUB."
+    ],
+    "brandColor": "#2F7D6D"
+  }
+}
