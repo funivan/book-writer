@@ -149,8 +149,8 @@ OUTPUT_IMAGE="$OUTPUT_PATH"
 
 # Get script directory to find .env file
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# scripts -> generate-image -> skills -> .cursor -> repo root
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
+# scripts -> generate-image -> skills -> repo root
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 
 # Load environment variables from .env if it exists (values may contain spaces; never use xargs|export)
 if [[ -f "$PROJECT_ROOT/.env" ]]; then

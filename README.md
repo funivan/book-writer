@@ -1,6 +1,6 @@
 # Book Writer
 
-A Claude Code and Codex plugin for generating children's books — from story ideas to full chapters, character profiles, cover images, and EPUB exports.
+A Claude Code, Codex, and Antigravity plugin for generating children's books — from story ideas to full chapters, character profiles, cover images, and EPUB exports.
 
 ## Skills
 
@@ -41,6 +41,18 @@ Install it from this repository as a local Codex plugin:
 ```bash
 codex plugin install .
 ```
+
+### Antigravity
+
+Antigravity configuration is available in `.agents/skills.json` and `.antigravity-plugin/plugin.json`.
+
+Install it as a local Antigravity plugin:
+
+```bash
+agy plugin install .
+```
+
+Or open the repository in Antigravity IDE / CLI directly; workspace skills in `skills/` are discovered automatically via `.agents/skills.json`.
 
 ### Optional dependencies
 

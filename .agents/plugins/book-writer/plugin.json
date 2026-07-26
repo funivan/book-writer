@@ -1,0 +1,13 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "book-writer",
+  "version": "1.0.1",
+  "description": "Antigravity skills for generating children's books — story ideas, characters, chapters, cover images, and EPUB export",
+  "author": {
+    "name": "Ivan Shcherbak",
+    "url": "https://github.com/funivan"
+  },
+  "homepage": "https://github.com/funivan/book-writer",
+  "repository": "https://github.com/funivan/book-writer",
+  "license": "MIT"
+}

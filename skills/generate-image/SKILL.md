@@ -38,7 +38,7 @@ compatibility:
 
 Шлях до скрипта (з кореня репозиторію):
 
-`.cursor/skills/generate-image/scripts/image-downloader.sh`
+`skills/generate-image/scripts/image-downloader.sh`
 
 ---
 
@@ -59,7 +59,7 @@ compatibility:
 - **Без** прапорця `--no-label` у скрипті (напис з назвою папки книги знизу, сіра гама — як зараз).
 
 ```bash
-.cursor/skills/generate-image/scripts/image-downloader.sh \
+skills/generate-image/scripts/image-downloader.sh \
   --keyword "{keyword}" \
   --output "{book_dir}/cover.jpeg" \
   --width "{width}" \
@@ -99,7 +99,7 @@ compatibility:
 - **Обовʼязково** додай **`--no-label`**: без смуги з назвою папки й без будь-якого напису на зображенні.
 
 ```bash
-.cursor/skills/generate-image/scripts/image-downloader.sh \
+skills/generate-image/scripts/image-downloader.sh \
   --keyword "{keyword}" \
   --output "{book_dir}/sN.jpg" \
   --width "{width}" \
@@ -141,7 +141,7 @@ Alt-текст не потрібен (порожній `![]()` допустим�
 Мінімальний приклад обкладинки:
 
 ```bash
-.cursor/skills/generate-image/scripts/image-downloader.sh \
+skills/generate-image/scripts/image-downloader.sh \
   --keyword "forest" \
   --output "books/my-book/cover.jpeg"
 ```
