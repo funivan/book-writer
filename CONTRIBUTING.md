@@ -4,6 +4,13 @@
 
 ```
 book-writer/
+  .agents/
+    skills.json              # Antigravity workspace skills config
+    plugins/
+      book-writer/
+        plugin.json          # Antigravity workspace plugin metadata
+  .antigravity-plugin/
+    plugin.json              # Antigravity plugin metadata
   .claude-plugin/
     plugin.json              # Plugin metadata
     marketplace.json         # Marketplace catalog
@@ -26,10 +33,6 @@ book-writer/
       SKILL.md
       scripts/
         convert.sh
-    write-bug/
-      SKILL.md
-      scripts/
-        slugify.sh
   .github/
     workflows/
       validate-scripts.yml     # ShellCheck + syntax + permissions CI
@@ -53,6 +56,9 @@ You can run validations locally:
 shellcheck skills/*/scripts/*.sh
 
 # JSON
+python3 -m json.tool .agents/skills.json
+python3 -m json.tool .agents/plugins/book-writer/plugin.json
+python3 -m json.tool .antigravity-plugin/plugin.json
 python3 -m json.tool .claude-plugin/marketplace.json
 python3 -m json.tool .claude-plugin/plugin.json
 python3 -m json.tool .codex-plugin/plugin.json
