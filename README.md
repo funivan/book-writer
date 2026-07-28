@@ -1,6 +1,6 @@
 # Book Writer
 
-A Claude Code, Codex, and Antigravity plugin for generating children's books — from story ideas to full chapters, character profiles, cover images, and EPUB exports.
+A Claude Code, Codex, Antigravity, and opencode plugin for generating children's books — from story ideas to full chapters, character profiles, cover images, and EPUB exports.
 
 ## Skills
 
@@ -53,6 +53,42 @@ agy plugin install .
 ```
 
 Or open the repository in Antigravity IDE / CLI directly; workspace skills in `skills/` are discovered automatically via `.agents/skills.json`.
+
+### opencode
+
+opencode has no plugin marketplace — plugins are loaded from `.opencode/plugins/`
+(project) or `~/.config/opencode/plugins/` (global), and skill directories are
+registered through `opencode.json`. See the [opencode plugin docs](https://opencode.ai/docs/plugins/).
+
+This repository ships both:
+
+- `opencode.json` — registers `./skills` when the repo itself is opened in opencode
+- `.opencode/plugins/book-writer.js` — a plugin that adds the skills directory to
+  the opencode config, resolved relative to the plugin file
+
+To use the skills from another project, pick one of:
+
+```bash
+# 1. Symlink the plugin globally (skills resolve back to this checkout)
+mkdir -p ~/.config/opencode/plugins
+ln -s "$PWD/.opencode/plugins/book-writer.js" ~/.config/opencode/plugins/book-writer.js
+```
+
+```jsonc
+// 2. Point your project's opencode.json at this checkout
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": ["/absolute/path/to/book-writer/skills"]
+}
+```
+
+```bash
+# 3. Copy or symlink the skills into a project's .opencode/skills/
+./install-opencode.sh /path/to/project        # symlink
+./install-opencode.sh --copy /path/to/project # copy
+```
+
+Restart opencode afterwards — skills and plugins are loaded at startup.
 
 ### Optional dependencies
 
