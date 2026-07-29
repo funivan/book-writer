@@ -51,6 +51,7 @@ Shell scripts and JSON files are validated on every push and pull request via Gi
 
 You can run validations locally:
 
+
 ```bash
 # Shell scripts
 shellcheck skills/*/scripts/*.sh
@@ -63,3 +64,26 @@ python3 -m json.tool .claude-plugin/marketplace.json
 python3 -m json.tool .claude-plugin/plugin.json
 python3 -m json.tool .codex-plugin/plugin.json
 ```
+
+## Developing for a new agent
+
+Skills live in `skills/<skill-name>/SKILL.md` and are agent-agnostic — each agent reads them via its own plugin adapter. To add support for a new agent:
+
+1. **Create a plugin config directory** named after the agent convention (e.g. `.myagent-plugin/`).
+2. **Add a `plugin.json`** that declares the plugin name, version, description, author, and a pointer to the `skills/` directory. Use one of the existing files (e.g. `.codex-plugin/plugin.json`) as a template.
+3. **Register the skills directory** according to the agent's plugin spec:
+   - If the agent supports a `skills` key in `plugin.json`, point it at `"./skills/"`.
+   - If the agent uses a JavaScript/TypeScript plugin entry point (like opencode), create a plugin file in `.myagent/plugins/` that resolves the `skills/` path and registers it at startup. See `.opencode/plugins/book-writer.js` for an example.
+   - If the agent uses a workspace config file (like Antigravity's `.agents/skills.json`), add an equivalent config that lists the `skills/` directory.
+4. **Update `README.md`** with an installation section for the new agent, including the exact command(s) users must run.
+5. **Update `CONTRIBUTING.md`** (this file) — add the new `plugin.json` to the JSON lint list in the CI section.
+6. **Validate JSON** with `python3 -m json.tool .myagent-plugin/plugin.json` and run the full CI suite locally before opening a PR.
+
+### Key files per agent
+
+| Agent | Config location | Skills pointer |
+|-------|----------------|----------------|
+| Claude Code | `.claude-plugin/plugin.json` | Marketplace-resolved, skills in `skills/` |
+| Codex | `.codex-plugin/plugin.json` | `"skills": "./skills/"` |
+| Antigravity | `.antigravity-plugin/plugin.json` | `"skills": "./skills/"` |
+| opencode | `.opencode/plugins/book-writer.js` | Resolved at runtime via `import.meta.dirname` |

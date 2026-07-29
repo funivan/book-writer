@@ -36,10 +36,11 @@ To update the plugin later:
 
 Codex plugin metadata is available in `.codex-plugin/plugin.json`, and it points to the same `skills/` directory used by the Claude Code plugin.
 
-Install it from this repository as a local Codex plugin:
+Install it from the Codex marketplace:
 
 ```bash
-codex plugin install .
+codex plugin marketplace add https://github.com/funivan/book-writer.git
+codex plugin add book-writer@book-writer
 ```
 
 ### Antigravity
