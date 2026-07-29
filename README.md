@@ -40,7 +40,7 @@ Install it from the Codex marketplace:
 
 ```bash
 codex plugin marketplace add funivan/book-writer
-codex plugin add book-writer@funivan/book-writer
+codex plugin add book-writer
 ```
 
 ### Antigravity
