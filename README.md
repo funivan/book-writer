@@ -39,8 +39,8 @@ Codex plugin metadata is available in `.codex-plugin/plugin.json`, and it points
 Install it from the Codex marketplace:
 
 ```bash
-codex plugin marketplace add funivan/book-writer
-codex plugin add book-writer
+codex plugin marketplace add https://github.com/funivan/book-writer.git
+codex plugin add book-writer@book-writer
 ```
 
 ### Antigravity
